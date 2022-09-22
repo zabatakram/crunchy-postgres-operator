@@ -33,6 +33,19 @@ spec:
         - --cluster.advertise-address=0.0.0.0:9093
         image: prom/alertmanager:v0.22.2
         imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - "ALL"
+          seccompProfile:
+            type: RuntimeDefault
+        resources:
+          requests:
+            cpu: 500m
+          limits:
+            cpu: 1000m
+            memory: 256Mi
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -66,6 +79,7 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       securityContext:
+        runAsNonRoot: true
         supplementalGroups:
         - 65534
       schedulerName: default-scheduler

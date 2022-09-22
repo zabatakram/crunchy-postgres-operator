@@ -6,7 +6,7 @@ metadata:
   labels:
     postgres-operator.crunchydata.com/control-plane: postgres-operator
 spec:
-  replicas: 1
+  replicas: 2
   strategy: { type: Recreate }
   selector:
     matchLabels:
@@ -49,6 +49,8 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: { drop: [ALL] }
+          seccompProfile:
+            type: RuntimeDefault
           readOnlyRootFilesystem: true
           runAsNonRoot: true
       serviceAccountName: pgo

@@ -1,4 +1,4 @@
-namespace: openshift-operators
+namespace: postgres-operator
 
 commonLabels:
   app.kubernetes.io/name: pgo
